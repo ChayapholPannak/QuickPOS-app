@@ -17,3 +17,7 @@
 .auth-error{font-size:11px;line-height:1.6;color:#a13d35;background:#fff0ee;border:1px solid #f4d5d0;border-radius:8px;padding:10px;margin-top:12px;overflow-wrap:anywhere}
 .signout-btn{min-height:32px;padding:7px 10px}
 @media(max-width:560px){.auth-card{padding:25px 20px;border-radius:16px}.auth-brand{margin-bottom:29px}.auth-card h1{font-size:27px}.signout-btn{font-size:9px;padding:7px}}
+
+.status-error-dot{color:#c76a5c}
+.full-grid-empty{grid-column:1/-1}
+body.modal-open{overflow:hidden}
