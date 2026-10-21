@@ -39,7 +39,7 @@ async function getSales(limit = 100) {
 const adminUsername = String(env.QUICKPOS_ADMIN_USERNAME || "admin");
 const adminPassword = String(env.QUICKPOS_ADMIN_PASSWORD || "");
 const sessionSecret = String(env.QUICKPOS_SESSION_SECRET || "");
-const authConfigured = () => adminPassword.length >= 12 && sessionSecret.length >= 32;
+const authConfigured = () => adminUsername.length > 0 && adminUsername.length <= 80 && adminPassword.length >= 12 && adminPassword.length <= 256 && sessionSecret.length >= 32;
 
 function constantTimeEqual(a: string, b: string) {
   let diff = a.length ^ b.length;
@@ -107,8 +107,12 @@ function isLoginLimited(req: Request) {
 }
 function recordFailedLogin(req: Request) {
   const key = clientKey(req), now = Date.now();
-  if (failedLogins.size > 1000) {
+  if (!failedLogins.has(key) && failedLogins.size >= 1000) {
     for (const [k, v] of failedLogins) if (v.resetAt <= now) failedLogins.delete(k);
+    if (failedLogins.size >= 1000) {
+      const oldestKey = failedLogins.keys().next().value;
+      if (oldestKey) failedLogins.delete(oldestKey);
+    }
   }
   const entry = failedLogins.get(key);
   if (!entry || entry.resetAt <= now) failedLogins.set(key, { count: 1, resetAt: now + 15 * 60 * 1000 });
