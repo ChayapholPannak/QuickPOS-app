@@ -50,7 +50,7 @@ function constantTimeEqual(a: string, b: string) {
 function base64url(bytes: Uint8Array) {
   let binary = "";
   for (let i = 0; i < bytes.length; i++) binary += String.fromCharCode(bytes[i]);
-  return btoa(binary).replace(/=/g, "").replace(/\\+/g, "-").replace(/\\//g, "_");
+  return btoa(binary).replace(/=/g, "").replace(/\+/g, "-").replace(/\//g, "_");
 }
 function fromBase64url(value: string) {
   const padded = value.replace(/-/g, "+").replace(/_/g, "/") + "=".repeat((4 - value.length % 4) % 4);
@@ -239,15 +239,15 @@ async function createSale(items: { productId: number; quantity: number }[]) {
 
 function spreadsheetText(value: unknown) {
   const text = String(value ?? "");
-  return /^[\\s]*[=+\\-@]/.test(text) ? "'" + text : text;
+  return /^[\s]*[=+\-@]/.test(text) ? "'" + text : text;
 }
 function csvCell(value: unknown) {
   let s = String(value ?? "");
-  if (/^[\\s]*[=+\\-@]/.test(s)) s = "'" + s;
+  if (/^[\s]*[=+\-@]/.test(s)) s = "'" + s;
   return '"' + s.replace(/"/g, '""') + '"';
 }
 function sendCsv(filename: string, headers: string[], rows: unknown[][]) {
-  const body = "\uFEFF" + [headers, ...rows].map(row => row.map(csvCell).join(",")).join("\\r\\n");
+  const body = "\uFEFF" + [headers, ...rows].map(row => row.map(csvCell).join(",")).join("\r\n");
   return new Response(body, { headers: { "Content-Type": "text/csv; charset=utf-8", "Content-Disposition": `attachment; filename="${filename}"`, "Cache-Control": "no-store" } });
 }
 
@@ -267,7 +267,7 @@ async function workbook() {
 }
 
 async function route(req: Request): Promise<Response> {
-  const url = new URL(req.url), path = url.pathname.replace(/\\/+$/, ""), method = req.method;
+  const url = new URL(req.url), path = url.pathname.replace(/\/+$/, ""), method = req.method;
 
   // Every mutation must come from the same origin. SameSite cookies provide a second CSRF defence.
   if (["POST", "PUT", "PATCH", "DELETE"].includes(method) && !sameOrigin(req)) return fail("Cross-origin request blocked.", 403);
@@ -292,7 +292,7 @@ async function route(req: Request): Promise<Response> {
 
   if (path.startsWith("/uploads/") && method === "GET") {
     const key = path.slice("/uploads/".length);
-    if (!/^[0-9a-f-]{36}\\.(jpg|png|webp)$/.test(key)) return fail("Not found.", 404);
+    if (!/^[0-9a-f-]{36}\.(jpg|png|webp)$/.test(key)) return fail("Not found.", 404);
     const result = await images().getWithMetadata(key, { type: "arrayBuffer" });
     if (!result) return new Response("Not found", { status: 404 });
     const allowedType = typeof result.metadata.contentType === "string" && IMAGE_TYPES[result.metadata.contentType] ? result.metadata.contentType : "application/octet-stream";
@@ -317,7 +317,7 @@ async function route(req: Request): Promise<Response> {
     return json({ product: productDTO(p) }, 201);
   }
 
-  const productMatch = path.match(/^\\/api\\/products\\/(\\d+)$/);
+  const productMatch = path.match(/^\/api\/products\/(\d+)$/);
   if (productMatch && method === "PUT") {
     const id = Number(productMatch[1]);
     const [old] = await db.select().from(products).where(eq(products.id, id));
