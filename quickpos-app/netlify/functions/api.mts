@@ -343,7 +343,7 @@ async function route(req: Request): Promise<Response> {
 
   if (path === "/api/sales" && method === "GET") {
     const rawLimit = url.searchParams.get("limit");
-    if (rawLimit && (!/^\\d{1,3}$/.test(rawLimit) || Number(rawLimit) < 1 || Number(rawLimit) > 500)) return fail("Limit must be between 1 and 500.", 400);
+    if (rawLimit && (!/^\d{1,3}$/.test(rawLimit) || Number(rawLimit) < 1 || Number(rawLimit) > 500)) return fail("Limit must be between 1 and 500.", 400);
     const limit = rawLimit ? Number(rawLimit) : 100;
     return json({ sales: await getSales(limit) });
   }
