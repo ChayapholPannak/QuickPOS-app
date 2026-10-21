@@ -1,0 +1,32 @@
+name: QuickPOS security checks
+
+on:
+  pull_request:
+    paths:
+      - "quickpos-app/**"
+      - ".github/workflows/quickpos-security.yml"
+  push:
+    branches: ["security/**"]
+    paths:
+      - "quickpos-app/**"
+      - ".github/workflows/quickpos-security.yml"
+
+jobs:
+  syntax-and-bundle:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: quickpos-app
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Install dependencies
+        run: npm install --no-audit --no-fund
+      - name: Check browser JavaScript syntax
+        run: npm run check
+      - name: Bundle API function to check TypeScript syntax and local imports
+        run: npx --yes esbuild netlify/functions/api.mts --bundle --platform=node --target=node20 --external:@netlify/functions --external:@netlify/blobs --external:@netlify/database --external:drizzle-orm --external:exceljs --outfile=/tmp/quickpos-api-check.mjs

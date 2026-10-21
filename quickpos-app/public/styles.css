@@ -3,3 +3,21 @@
 @media(max-width:1200px){.page-wrap{padding:27px 23px}.topbar{padding:0 23px}.product-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.pos-layout{grid-template-columns:minmax(0,1.3fr) minmax(260px,.85fr)}}
 @media(max-width:850px){.sidebar{display:none}.mobile-brand{display:flex}.mobile-nav{display:grid;position:fixed;bottom:0;left:0;right:0;height:66px;padding:5px 9px max(5px,env(safe-area-inset-bottom));background:#ffffffed;border-top:1px solid #e6ebe5;z-index:30;grid-template-columns:repeat(4,1fr)}.mobile-nav-item{border:0;background:transparent;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:4px;color:#99a39a}.mobile-nav-item span{font-size:18px;line-height:1}.mobile-nav-item small{font-size:9px;font-weight:700}.mobile-nav-item.active{color:#347c52}.main-area{margin-left:0}.topbar{height:62px;padding:0 17px}.page-wrap{padding:22px 17px 90px}.pos-layout{grid-template-columns:1fr}.basket-panel{position:static;order:2}.catalog-panel{order:1}.product-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.export-grid{grid-template-columns:1fr 1fr}.export-card:last-child{grid-column:1/-1}.page-heading h1{font-size:25px}.stat-card{padding:14px}.stat-value{font-size:21px}}
 @media(max-width:560px){.topbar{padding:0 13px}.page-wrap{padding:19px 12px 88px}.page-heading{align-items:flex-start;margin-bottom:18px}.page-heading h1{font-size:22px}.page-subtitle{font-size:10px;line-height:1.5}.stats-grid{gap:7px;margin-bottom:14px}.stat-card{padding:10px 8px;border-radius:10px}.stat-label{font-size:9px;min-height:22px;display:block}.stat-icon{width:22px;height:22px;font-size:10px}.stat-value{font-size:16px;letter-spacing:-.6px;margin:8px 0 6px;white-space:nowrap}.stat-foot{font-size:8px;line-height:1.35;align-items:flex-start}.catalog-panel,.table-panel{padding:13px 11px}.panel-heading h2,.basket-heading h2{font-size:14px}.panel-heading p,.basket-heading p{font-size:9px}.product-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.product-art{height:110px}.product-card-body{padding:9px}.product-name{font-size:10px}.product-price{font-size:12px}.basket-heading{padding:15px}.basket-items{padding:5px 15px}.basket-bottom{padding:13px 15px}.export-grid{grid-template-columns:1fr}.export-card:last-child{grid-column:auto}.export-card{padding:16px}.export-card p{min-height:0}.report-intro{padding:16px;gap:12px;align-items:flex-start}.report-orb{width:42px;height:42px}.report-intro h2{font-size:14px}.report-intro p{font-size:10px}.product-modal-card{padding:17px 14px;max-height:calc(100dvh - 20px)}.modal-backdrop{padding:10px}.form-grid{gap:10px}.form-field input,.form-field select,.form-field textarea{padding:10px}.toast-region{right:10px;bottom:76px}.page-footer{font-size:8px}}
+
+/* Private sign-in screen */
+.auth-screen{min-height:100vh;display:grid;place-items:center;padding:24px;background:radial-gradient(ellipse at top,#e7f2e9 0%,#f7f8f6 54%,#eef3ef 100%)}
+.auth-card{width:min(420px,100%);background:#fff;border:1px solid #e4ebe4;border-radius:20px;padding:34px;box-shadow:0 24px 80px #173f3512}
+.auth-brand{display:flex;align-items:center;gap:11px;margin-bottom:34px}.auth-description{font-size:13px;line-height:1.7;color:#87928a;margin:9px 0 25px}
+.auth-card h1{font-size:30px;letter-spacing:-1px;margin:0;color:#1d2b24}
+.auth-field{display:flex;flex-direction:column;gap:8px;margin:15px 0}.auth-field span{font-size:11px;font-weight:800;color:#425448}
+.auth-field input{width:100%;border:1px solid #dfe7df;background:#fcfdfc;border-radius:10px;padding:13px 12px;font-size:13px;outline:none;color:#26382b}
+.auth-field input:focus{border-color:#77af8b;box-shadow:0 0 0 3px #78ad891a}
+.auth-submit{width:100%;min-height:45px;margin-top:7px;font-size:12px}
+.auth-footnote{font-size:10px;line-height:1.6;color:#99a39a;text-align:center;margin:14px 0 0}
+.auth-error{font-size:11px;line-height:1.6;color:#a13d35;background:#fff0ee;border:1px solid #f4d5d0;border-radius:8px;padding:10px;margin-top:12px;overflow-wrap:anywhere}
+.signout-btn{min-height:32px;padding:7px 10px}
+@media(max-width:560px){.auth-card{padding:25px 20px;border-radius:16px}.auth-brand{margin-bottom:29px}.auth-card h1{font-size:27px}.signout-btn{font-size:9px;padding:7px}}
+
+.status-error-dot{color:#c76a5c}
+.full-grid-empty{grid-column:1/-1}
+body.modal-open{overflow:hidden}
