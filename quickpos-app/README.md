@@ -85,6 +85,6 @@ All shop data and image routes require a valid session.
 
 ### Important limitations
 
-The login throttling map is best-effort and only applies within a running function instance; it is **not** a distributed rate limiter. For a public production deployment, configure edge/WAF rate limits or a shared rate-limiting service for login and expensive export endpoints. Use least-privilege access for Netlify Database/Blobs, review access to the Netlify site, and test your backup-and-restore process.
+The login throttling map is best-effort and only applies within a running function instance; it is **not** a distributed rate limiter. For a public production deployment, configure edge/WAF rate limits or a shared rate-limiting service for login and expensive export endpoints. The session is stateless: signing out clears the current browser cookie, but a copied valid cookie could be replayed until it expires. Rotating `QUICKPOS_SESSION_SECRET` invalidates all existing sessions after redeploy. Use a managed identity/session provider if you need per-session revocation or multiple staff accounts. Use least-privilege access for Netlify Database/Blobs, review access to the Netlify site, and test your backup-and-restore process.
 
 These changes are source-level hardening, not a penetration test or a guarantee that every deployment is secure. Test sign-in, sign-out, expired sessions, product create/update, sales, image viewing, and all exports in a Netlify deploy preview before using real shop data.
